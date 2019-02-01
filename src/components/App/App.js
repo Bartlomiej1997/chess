@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Row, Col } from "antd";
+import Chessboard from './../Chessboard/Chessboard';
 
 import "./App.css";
 
@@ -13,7 +14,7 @@ class App extends Component {
         </Row>
         <Row>
          <Col>Yes</Col>
-         <Col><Button>No</Button></Col>
+         <Col><Chessboard/></Col>
         </Row>
       </div>
     );
