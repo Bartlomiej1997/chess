@@ -1,31 +1,40 @@
 import React, { Component } from "react";
 import { Row, Col } from "antd";
-import Chessboard from "./../Chessboard/Chessboard";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import WaitingRoom from './../WaitingRoom/WaitingRoom';
+import SideMenu from "./../SideMenu/SideMenu";
+import Error from "./../Error/Error";
+import Lessons from "./../Lessons/Lessons";
+import Openings from "./../Openings/Openings";
+import Home from "./../Home/Home";
+import io from "socket.io-client";
 
 import "./App.css";
-import io from "socket.io-client";
 let socket = io(`http://localhost:3001`);
 
 class App extends Component {
-  state = {
-    chess: null
-  };
-  componentDidMount() {
-    socket.on("start", data => {
-      this.setState({
-        chess: <Chessboard socket={socket} color={data.color} fen={data.fen} />
-      });
-    });
-  }
   render() {
     return (
-      <div>
-        <Row type="flex" justify="center">
-          <Col>
-            <div align="center">{this.state.chess}</div>
-          </Col>
-        </Row>
-      </div>
+      <BrowserRouter>
+        <div>
+          <Row>
+            <Col span={6}>
+              <SideMenu />
+            </Col>
+            <Col span={12}>
+              <Switch>
+                <Route path="/" component={Home} exact />
+                <Route path="/live" component={WaitingRoom} />
+                <Route path="/online" component={WaitingRoom} />
+                <Route path="/computer" component={WaitingRoom} />
+                <Route path="/lessons" component={Lessons} />
+                <Route path="/openings" component={Openings} />
+                <Route component={Error} />
+              </Switch>
+            </Col>
+          </Row>
+        </div>
+      </BrowserRouter>
     );
   }
 }
