@@ -1,22 +1,38 @@
 import React, { Component } from "react";
-import { Button, Row, Col } from "antd";
-import Chessboard from './../Chessboard/Chessboard';
+import { Row, Col } from "antd";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Chessboard from "./../Chessboard/Chessboard";
+import SideMenu from "./../SideMenu/SideMenu";
+import Error from "./../Error/Error";
+import Lessons from "./../Lessons/Lessons";
+import Openings from "./../Openings/Openings";
+import Home from "./../Home/Home";
 
 import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <Row>
-         <Col span={12}>Yes</Col>
-         <Col span={12}>No</Col>
-        </Row>
-        <Row>
-         <Col>Yes</Col>
-         <Col><Chessboard/></Col>
-        </Row>
-      </div>
+      <BrowserRouter>
+        <div>
+          <Row>
+            <Col span={6}>
+              <SideMenu />
+            </Col>
+            <Col span={12}>
+              <Switch>
+                <Route path="/" component={Home} exact />
+                <Route path="/live" component={Chessboard} />
+                <Route path="/online" component={Chessboard} />
+                <Route path="/computer" component={Chessboard} />
+                <Route path="/lessons" component={Lessons} />
+                <Route path="/openings" component={Openings} />
+                <Route component={Error} />
+              </Switch>
+            </Col>
+          </Row>
+        </div>
+      </BrowserRouter>
     );
   }
 }
