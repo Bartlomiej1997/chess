@@ -8,7 +8,7 @@ class Chessboard extends Component {
     this.state = {};
   }
   render() {
-    return <P5Wrapper sketch={sketch} />;
+    return <P5Wrapper socket = {this.props.socket} color={this.props.color} fen={this.props.fen} sketch={sketch} />;
   }
 }
 
