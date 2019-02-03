@@ -1,7 +1,6 @@
-//import "p5/lib/addons/p5.sound";
+import "p5/lib/addons/p5.sound";
 import Board from "./Board";
 import chess from "chess.js";
-
 
 var boxSize = 64;
 let chessboard;
@@ -22,6 +21,15 @@ export default function sketch(p) {
     p.imgs["B"] = p.loadImage("assets/wB.png");
     p.imgs["N"] = p.loadImage("assets/wN.png");
     p.imgs["R"] = p.loadImage("assets/wR.png");
+    p["sounds"] = {};
+    p.sounds["illegal"] = p.loadSound("assets/illegal.mp3");
+    p.sounds["move"] = p.loadSound("assets/move.mp3");
+    p.sounds["capture"] = p.loadSound("assets/capture.mp3");
+    p.sounds["time"] = p.loadSound("assets/time.mp3");
+    p.sounds["castle"] = p.loadSound("assets/castle.mp3");
+    p.sounds["win"] = p.loadSound("assets/win.mp3");
+    p.sounds["lose"] = p.loadSound("assets/lose.mp3");
+    p.sounds["check"] = p.loadSound("assets/check.mp3");
   };
   p.setup = () => {
     p.frameRate(30);
@@ -29,7 +37,7 @@ export default function sketch(p) {
     p.textSize(30);
     boxSize = p.width / 8;
     props.socket.on("move", data => {
-      chessboard.move(data);
+      chessboard.move(data,p);
       p.redraw();
     });
     p.noLoop();
@@ -40,13 +48,12 @@ export default function sketch(p) {
       props.socket,
       p.color(182, 136, 97),
       p.color(240, 216, 179)
-      );
-      p.windowResized();
+    );
+    p.windowResized();
   };
 
   p.myCustomRedrawAccordingToNewPropsHandler = function(tprops) {
     props = tprops;
-    
   };
 
   p.draw = () => {
@@ -66,8 +73,7 @@ export default function sketch(p) {
   };
 
   p.mouseDragged = () => {
-    if(chessboard.dragged)
-      p.redraw();
+    if (chessboard.dragged) p.redraw();
   };
 
   p.mousePressed = () => {

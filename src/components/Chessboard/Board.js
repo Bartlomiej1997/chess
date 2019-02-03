@@ -100,8 +100,31 @@ export default class Board {
     else return null;
   }
 
-  move(data) {
+  move(data, p) {
     this.chess.move(data);
+    if (this.chess.in_check()) data.flags = "ch";
+    switch (data.flags) {
+      case "ch":
+        p.sounds["check"].play();
+        break;
+      case "n":
+      case "b":
+      case "p":
+        p.sounds["move"].play();
+        break;
+      case "e":
+      case "c":
+      case "pc":
+      case "cp":
+        p.sounds["capture"].play();
+        break;
+      case "k":
+      case "q":
+        p.sounds["castle"].play();
+        break;
+    }
+
+    //p.keyPressed();
   }
 
   sanNotationSquare(square) {
@@ -135,11 +158,9 @@ export default class Board {
           };
           move = this.chess.move(move);
           if (move) {
-            console.log(move);
             correct = true;
             this.chess.undo();
             if (move.flags == "p" || move.flags == "pc" || move.flags == "cp") {
-              console.log("YESYESYYES");
               this.promotingMove = move;
               p.redraw();
             } else this.socket.emit("move", move);
