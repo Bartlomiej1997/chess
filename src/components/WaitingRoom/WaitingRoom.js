@@ -21,10 +21,8 @@ class WaitingRoom extends Component {
   }
   render() {
     return (
-      <Row type="flex" justify="center">
-        <Col>
-          <div align="center">{this.state.chess}</div>
-        </Col>
+      <Row id="chesscol" type="flex" justify="center">
+          {this.state.chess}
       </Row>
     );
   }
