@@ -7,10 +7,8 @@ import Error from "./../Error/Error";
 import Lessons from "./../Lessons/Lessons";
 import Openings from "./../Openings/Openings";
 import Home from "./../Home/Home";
-import io from "socket.io-client";
 
 import "./App.css";
-let socket = io(`http://localhost:3001`);
 
 class App extends Component {
   render() {
