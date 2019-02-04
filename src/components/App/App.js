@@ -7,6 +7,7 @@ import Error from "./../Error/Error";
 import Lessons from "./../Lessons/Lessons";
 import Openings from "./../Openings/Openings";
 import Home from "./../Home/Home";
+import Chat from "./../Chat/Chat";
 
 import "./App.css";
 
@@ -16,15 +17,26 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Row>
-            <Col span={6}>
+            <Col span={6} >
               <SideMenu />
             </Col>
-            <Col span={1}>
+            <Col span={9}>
               <Switch>
                 <Route path="/" component={Home} exact />
                 <Route path="/live" component={WaitingRoom} />
                 <Route path="/online" component={WaitingRoom} />
                 <Route path="/computer" component={WaitingRoom} />
+                <Route path="/lessons" component={Lessons} />
+                <Route path="/openings" component={Openings} />
+                <Route component={Error} />
+              </Switch>
+            </Col>
+            <Col span={9}>
+            <Switch>
+                <Route path="/" component={Error} exact />
+                <Route path="/live" component={Chat} />
+                <Route path="/online" component={Chat} />
+                <Route path="/computer" component={Chat} />
                 <Route path="/lessons" component={Lessons} />
                 <Route path="/openings" component={Openings} />
                 <Route component={Error} />
