@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col } from "antd";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import WaitingRoom from './../WaitingRoom/WaitingRoom';
+import WaitingRoom from "./../WaitingRoom/WaitingRoom";
 import SideMenu from "./../SideMenu/SideMenu";
 import Error from "./../Error/Error";
 import Lessons from "./../Lessons/Lessons";
@@ -19,7 +19,7 @@ class App extends Component {
             <Col span={6}>
               <SideMenu />
             </Col>
-            <Col span={12}>
+            <Col span={1}>
               <Switch>
                 <Route path="/" component={Home} exact />
                 <Route path="/live" component={WaitingRoom} />
