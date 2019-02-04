@@ -53,6 +53,7 @@ export default function sketch(p) {
   };
 
   p.myCustomRedrawAccordingToNewPropsHandler = function(tprops) {
+    console.log(tprops);
     props = tprops;
   };
 
