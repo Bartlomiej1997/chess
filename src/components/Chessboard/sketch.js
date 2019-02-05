@@ -41,7 +41,6 @@ export default function sketch(p) {
       p.redraw();
     });
     p.noLoop();
-    console.log(props);
     chessboard = new Board(
       boxSize,
       new chess(props.fen),
@@ -54,7 +53,6 @@ export default function sketch(p) {
   };
 
   p.myCustomRedrawAccordingToNewPropsHandler = function(tprops) {
-    console.log(tprops);
     props = tprops;
   };
 
@@ -79,12 +77,10 @@ export default function sketch(p) {
   };
 
   p.mousePressed = () => {
-    console.log("\n\n\n\n\n\nIM CLICKING MY MOUSE RIGHT NOW ONCE KURWA ONCE\n\n\n\n")
     chessboard.click(p);
   };
 
   p.mouseReleased = () => {
-    console.log("\n\n\n\n\n\nIM RELEASING MY FUCKING MOUSE RIGHT NOW ONCE ONLY FUCKING ONCE\n\n\n\n\n\n")
     chessboard.release(p);
   };
 
