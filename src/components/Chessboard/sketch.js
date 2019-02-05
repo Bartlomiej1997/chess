@@ -9,27 +9,27 @@ let props;
 export default function sketch(p) {
   p.preload = () => {
     p["imgs"] = {};
-    p.imgs["k"] = p.loadImage("assets/bK.png");
-    p.imgs["q"] = p.loadImage("assets/bQ.png");
-    p.imgs["p"] = p.loadImage("assets/bP.png");
-    p.imgs["b"] = p.loadImage("assets/bB.png");
-    p.imgs["n"] = p.loadImage("assets/bN.png");
-    p.imgs["r"] = p.loadImage("assets/bR.png");
-    p.imgs["K"] = p.loadImage("assets/wK.png");
-    p.imgs["Q"] = p.loadImage("assets/wQ.png");
-    p.imgs["P"] = p.loadImage("assets/wP.png");
-    p.imgs["B"] = p.loadImage("assets/wB.png");
-    p.imgs["N"] = p.loadImage("assets/wN.png");
-    p.imgs["R"] = p.loadImage("assets/wR.png");
+    p.imgs["k"] = p.loadImage("/assets/bK.png");
+    p.imgs["q"] = p.loadImage("/assets/bQ.png");
+    p.imgs["p"] = p.loadImage("/assets/bP.png");
+    p.imgs["b"] = p.loadImage("/assets/bB.png");
+    p.imgs["n"] = p.loadImage("/assets/bN.png");
+    p.imgs["r"] = p.loadImage("/assets/bR.png");
+    p.imgs["K"] = p.loadImage("/assets/wK.png");
+    p.imgs["Q"] = p.loadImage("/assets/wQ.png");
+    p.imgs["P"] = p.loadImage("/assets/wP.png");
+    p.imgs["B"] = p.loadImage("/assets/wB.png");
+    p.imgs["N"] = p.loadImage("/assets/wN.png");
+    p.imgs["R"] = p.loadImage("/assets/wR.png");
     p["sounds"] = {};
-    p.sounds["illegal"] = p.loadSound("assets/illegal.mp3");
-    p.sounds["move"] = p.loadSound("assets/move.mp3");
-    p.sounds["capture"] = p.loadSound("assets/capture.mp3");
-    p.sounds["time"] = p.loadSound("assets/time.mp3");
-    p.sounds["castle"] = p.loadSound("assets/castle.mp3");
-    p.sounds["win"] = p.loadSound("assets/win.mp3");
-    p.sounds["lose"] = p.loadSound("assets/lose.mp3");
-    p.sounds["check"] = p.loadSound("assets/check.mp3");
+    p.sounds["illegal"] = p.loadSound("/assets/illegal.mp3");
+    p.sounds["move"] = p.loadSound("/assets/move.mp3");
+    p.sounds["capture"] = p.loadSound("/assets/capture.mp3");
+    p.sounds["time"] = p.loadSound("/assets/time.mp3");
+    p.sounds["castle"] = p.loadSound("/assets/castle.mp3");
+    p.sounds["win"] = p.loadSound("/assets/win.mp3");
+    p.sounds["lose"] = p.loadSound("/assets/lose.mp3");
+    p.sounds["check"] = p.loadSound("/assets/check.mp3");
   };
   p.setup = () => {
     p.frameRate(30);
@@ -41,6 +41,7 @@ export default function sketch(p) {
       p.redraw();
     });
     p.noLoop();
+    console.log(props);
     chessboard = new Board(
       boxSize,
       new chess(props.fen),
@@ -78,10 +79,12 @@ export default function sketch(p) {
   };
 
   p.mousePressed = () => {
+    console.log("\n\n\n\n\n\nIM CLICKING MY MOUSE RIGHT NOW ONCE KURWA ONCE\n\n\n\n")
     chessboard.click(p);
   };
 
   p.mouseReleased = () => {
+    console.log("\n\n\n\n\n\nIM RELEASING MY FUCKING MOUSE RIGHT NOW ONCE ONLY FUCKING ONCE\n\n\n\n\n\n")
     chessboard.release(p);
   };
 

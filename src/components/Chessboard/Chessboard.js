@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import P5Wrapper from "react-p5-wrapper";
+import P5Wrapper from './../P5Wrapper/P5Wrapper';
 import sketch from "./sketch.js";
 
 class Chessboard extends Component {
