@@ -17,7 +17,7 @@ class App extends Component {
         <div>
           <Row>
             <Col span={6}>
-              <SideMenu />
+              <SideMenu title="CHESS.COM" />
             </Col>
             <Col span={1}>
               <Switch>
