@@ -20,7 +20,7 @@ class App extends Component {
             <Col span={6}>
               <SideMenu />
             </Col>
-            <Col span={1}>
+            <Col span={12}>
               <Switch>
                 <Route path="/" component={Home} exact />
                 <Route path="/live" component={WaitingRoom} />
