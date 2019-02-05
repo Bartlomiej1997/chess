@@ -59,6 +59,7 @@ class WaitingRoom extends Component {
     this.setState({ redirect: id });
   };
 
+  
   searchForGame = () => {
     console.log("Searching for game");
     this.state.socket.emit("search for game", { time: 10, increment: 0 });
