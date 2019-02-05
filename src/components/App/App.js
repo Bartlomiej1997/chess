@@ -7,6 +7,7 @@ import Error from "./../Error/Error";
 import Lessons from "./../Lessons/Lessons";
 import Openings from "./../Openings/Openings";
 import Home from "./../Home/Home";
+import GameRoom from "./../GameRoom/GameRoom";
 
 import "./App.css";
 
@@ -26,6 +27,7 @@ class App extends Component {
                 <Route path="/online" component={WaitingRoom} />
                 <Route path="/computer" component={WaitingRoom} />
                 <Route path="/lessons" component={Lessons} />
+                <Route path="/room/:id" component={GameRoom} />
                 <Route path="/openings" component={Openings} />
                 <Route component={Error} />
               </Switch>
