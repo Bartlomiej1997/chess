@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Chessboard from "./../Chessboard/Chessboard";
 import io from "socket.io-client";
+import auth from "./../../auth";
+
+let socket;
 
 class GameRoom extends Component {
   constructor(props) {
@@ -8,7 +11,6 @@ class GameRoom extends Component {
     this.state = {
       color: "spectator",
       fen: "",
-      socket: io(`http://localhost:3001`),
       room: props.match.params.id,
       renderBoard: false
     };
@@ -16,24 +18,37 @@ class GameRoom extends Component {
 
   componentDidMount() {
     let self = this;
-    this.state.socket.on("joined", data => {
-      self.setState({ color: data.color, fen: data.fen, renderBoard: true });
-    });
-    this.state.socket.emit("connect to room", { id: self.state.room });
+
+    let authing = () => {
+      socket = io("http://localhost:3001");
+      auth(
+        socket,
+        () => {
+          socket.on("joined", data => {
+            self.setState({
+              color: data.color,
+              fen: data.fen,
+              renderBoard: true
+            });
+          });
+          socket.emit("connect to room", { id: self.state.room });
+        },
+        authing
+      );
+    };
+    authing();
   }
 
   componentWillUnmount() {
-    console.log("GameRoom unmount")
-    this.state.socket.emit("leave", {color:this.state.color, id:this.state.room});
+    socket.disconnect();
   }
-
 
   render() {
     return (
       <div id="chesscol" type="flex" justify="center">
         {this.state.renderBoard ? (
           <Chessboard
-            socket={this.state.socket}
+            socket={socket}
             color={this.state.color}
             fen={this.state.fen}
           />
