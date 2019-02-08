@@ -1,38 +1,54 @@
 import React, { Component } from "react";
 import { Card, Button, Row, Col } from "antd";
 import { Switch, Redirect, Route, Link } from "react-router-dom";
+import auth from "./../../auth";
 
 import io from "socket.io-client";
+
+let socket;
 
 class WaitingRoom extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      socket: io(`http://localhost:3001`),
       rooms: {},
       redirect: false
     };
   }
 
   componentDidMount() {
-    let self = this;
-
-    this.state.socket.on("game found", data => {
-      console.log("Game found redirectiong to:" ,data.id);
-      self.setState({ redirect: data.id });
-    });
-
-    this.state.socket.on("room update", data => {
-      let rooms = { ...self.state.rooms };
-      rooms[data.id] = data;
-      self.setState({ rooms });
-    });
-
     console.log("Fetching rooms");
     fetch("/rooms")
       .then(res => res.json())
       .then(rooms => self.setState({ rooms }));
+    let self = this;
+
+    let authing = () => {
+      socket = io("http://localhost:3001");
+      auth(
+        socket,
+        () => {
+          console.log("yesyesyesyes");
+          socket.on("game found", data => {
+            console.log("Game found redirectiong to:", data.id);
+            self.setState({ redirect: data.id });
+          });
+
+          socket.on("room update", data => {
+            let rooms = { ...self.state.rooms };
+            rooms[data.id] = data;
+            self.setState({ rooms });
+          });
+        },
+        authing
+      );
+    };
+    authing();
+  }
+
+  componentWillUnmount() {
+    socket.disconnect();
   }
 
   renderRoom({ id, spectators, time, increment, status }, ind) {
@@ -59,10 +75,9 @@ class WaitingRoom extends Component {
     this.setState({ redirect: id });
   };
 
-  
   searchForGame = () => {
     console.log("Searching for game");
-    this.state.socket.emit("search for game", { time: 10, increment: 0 });
+    socket.emit("search for game", { time: 10, increment: 0 });
   };
 
   render() {
