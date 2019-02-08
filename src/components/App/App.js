@@ -7,11 +7,8 @@ import Error from "./../Error/Error";
 import Lessons from "./../Lessons/Lessons";
 import Openings from "./../Openings/Openings";
 import Home from "./../Home/Home";
-<<<<<<< HEAD
 import Chat from "./../Chat/Chat";
-=======
 import GameRoom from "./../GameRoom/GameRoom";
->>>>>>> master
 
 import "./App.css";
 
@@ -24,11 +21,7 @@ class App extends Component {
             <Col span={6}>
               <SideMenu />
             </Col>
-<<<<<<< HEAD
             <Col span={9}>
-=======
-            <Col span={12}>
->>>>>>> master
               <Switch>
                 <Route path="/" component={Home} exact />
                 <Route path="/live" component={WaitingRoom} />
