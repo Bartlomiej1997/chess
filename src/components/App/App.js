@@ -21,7 +21,7 @@ class App extends Component {
             <Col span={6}>
               <SideMenu />
             </Col>
-            <Col span={9}>
+            <Col span={12}>
               <Switch>
                 <Route path="/" component={Home} exact />
                 <Route path="/live" component={WaitingRoom} />
@@ -33,18 +33,15 @@ class App extends Component {
                 <Route component={Error} />
               </Switch>
             </Col>
-            <Col span={9}>
+            <Col span={6} style={{ height: "50vh" }}>
               <Switch>
                 <Route path="/" component={Error} exact />
-              
-                <Route
-                  path="/live"
-                  render={props => <Chat {...props} title={"Chat"} />}
-                />
+
+                <Route path="/live" component={Chat} />
                 <Route path="/online" component={Chat} />
                 <Route path="/computer" component={Chat} />
-                <Route path="/lessons" component={Lessons} />
-                <Route path="/openings" component={Openings} />
+                <Route path="/lessons" component={null} />
+                <Route path="/openings" component={null} />
                 <Route component={Error} />
               </Switch>
             </Col>
