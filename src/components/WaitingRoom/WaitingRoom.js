@@ -48,6 +48,7 @@ class WaitingRoom extends Component {
   }
 
   componentWillUnmount() {
+    console.log("WaitingRoom unmounting");
     socket.disconnect();
   }
 
