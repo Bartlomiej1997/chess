@@ -21,7 +21,8 @@ class WaitingRoom extends Component {
     console.log("Fetching rooms");
     fetch("/rooms")
       .then(res => res.json())
-      .then(rooms => self.setState({ rooms }));
+      .then(rooms => self.setState({ rooms }))
+      .catch(err=>console.log(err));
     let self = this;
 
     let authing = () => {
