@@ -123,8 +123,6 @@ export default class Board {
         p.sounds["castle"].play();
         break;
     }
-
-    //p.keyPressed();
   }
 
   sanNotationSquare(square) {
@@ -150,20 +148,20 @@ export default class Board {
     if (p.isInCanvas()) {
       if (this.dragged) {
         let pos = this.whichSquare(p);
-        if (this.dragged) {
-          let move = {
-            from: this.sanNotationSquare(this.dragged),
-            to: this.sanNotationSquare(pos),
-            promotion: "q"
-          };
-          move = this.chess.move(move);
-          if (move) {
-            correct = true;
-            this.chess.undo();
-            if (move.flags == "p" || move.flags == "pc" || move.flags == "cp") {
-              this.promotingMove = move;
-              p.redraw();
-            } else this.socket.emit("move", move);
+        let move = {
+          from: this.sanNotationSquare(this.dragged),
+          to: this.sanNotationSquare(pos),
+          promotion: "q"
+        };
+        move = this.chess.move(move);
+        if (move) {
+          correct = true;
+          this.chess.undo();
+          if (move.flags == "p" || move.flags == "pc" || move.flags == "cp") {
+            this.promotingMove = move;
+            p.redraw();
+          } else {
+            this.socket.emit("move", move);
           }
         }
       }
@@ -195,7 +193,6 @@ export default class Board {
   }
 
   drawPromotionBox(p) {
-    console.log("IM DRAWING PROMOTION KURWAE HEEHEH");
     let { x, y } = this.sanSquareToXYREAL(this.promotingMove.to);
     let dx, dy;
     dx = x * this.boxSize;

@@ -5,8 +5,8 @@ class MenuItem extends Component {
   state = {};
   render() {
     return (
-      <Row className="row">
-        <div>{this.props.children}</div>
+      <Row>
+        <div >{this.props.children}</div>
       </Row>
     );
   }

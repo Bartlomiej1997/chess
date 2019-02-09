@@ -1,103 +1,115 @@
 import React, { Component } from "react";
-import { Row, Col, Icon } from "antd";
+import { Row, Col, Affix, Icon, Divider } from "antd";
 import MenuItem from "./MenuItem/MenuItem";
 import SubMenu from "./SubMenu/SubMenu";
 import { NavLink } from "react-router-dom";
 
-import "./SideMenu.css";
-
 class SideMenu extends Component {
-  state = { hidden: true, children: null };
-  show = () => {
-    this.setState({ hidden: false });
-  };
-  hide = () => {
-    this.setState({ hidden: true });
-  };
+  state = { focused: false, children: null };
 
-  renderChildren = pchildren => {
-    this.setState((this.state.children = pchildren));
-  };
+  navStyle = { padding: "15px", fontSize: "30px", marginBottom: "10px", borderBottom:'1px dashed white'};
 
   render() {
     return (
-      <div style={{position:'fixed'}}>
-        <Row style={{ margin: "0px"}}>
-          <Col span={12} style={{ background: "#111", height: "100%" }}>
-            <Row style={{ margin: "15px", color: "white" }}>
-              {this.props.title}
+      <Affix offsetTop={0}>
+        <Row>
+          <Col
+            span={12}
+            style={{
+              height: "100vh",
+              background: this.state.focused ? "#312e2b" : "#111"
+            }}
+          >
+            <Row style={{ margin: "15px" }}>
+              <h1 style={{ color: "white", fontWeight:'900' }}>CHESS.COM</h1>
             </Row>
+
             <Row
-              className="row"
-              onMouseEnter={this.show}
-              onMouseLeave={this.hide}
+              onMouseEnter={() => {
+                this.setState({ focused: true });
+              }}
+              onMouseLeave={() => {
+                this.setState({ focused: false });
+              }}
             >
               <SubMenu
                 title={
-                  <span>
+                  <div style={this.navStyle}>
                     <Icon type="play-circle" />
                     <span>Play</span>
-                  </span>
+                  </div>
                 }
-                renderChildren={this.renderChildren}
+                renderChildren={pchildren => {
+                  this.setState({ children: pchildren });
+                }}
               >
                 <MenuItem>
                   {" "}
-                  <NavLink style={{ color: "white" }} to="/live">Live Chess</NavLink>{" "}
+                  <NavLink style={{ color: "white" }} to="/live">
+                    <div style={this.navStyle}>Live Chess</div>
+                  </NavLink>{" "}
                 </MenuItem>
                 <MenuItem>
                   {" "}
-                  <NavLink style={{ color: "white" }} to="/online">Online Chess</NavLink>{" "}
+                  <NavLink style={{ color: "white" }} to="/online">
+                    <div style={this.navStyle}>Online Chess</div>
+                  </NavLink>{" "}
                 </MenuItem>
                 <MenuItem>
                   {" "}
-                  <NavLink style={{ color: "white" }} to="/computer">Computer</NavLink>{" "}
+                  <NavLink style={{ color: "white" }} to="/computer">
+                    <div style={this.navStyle}>Computer</div>
+                  </NavLink>{" "}
                 </MenuItem>
               </SubMenu>
-            </Row>
-            <Row
-              className="row"
-              onMouseEnter={this.show}
-              onMouseLeave={this.hide}
-            >
+
               <SubMenu
-                style={{height:'100%'}}
                 title={
-                  <span>
+                  <div style={this.navStyle}>
                     <Icon type="book" />
                     <span>Learn</span>
-                  </span>
+                  </div>
                 }
-                renderChildren={this.renderChildren}
+                renderChildren={pchildren => {
+                  this.setState({ children: pchildren });
+                }}
               >
                 <MenuItem>
                   {" "}
-                  <NavLink style={{ color: "white" }} to="/lessons">Lessons</NavLink>{" "}
+                  <NavLink style={{ color: "white" }} to="/lessons">
+                    <div style={this.navStyle}>Lessons</div>
+                  </NavLink>{" "}
                 </MenuItem>
                 <MenuItem>
                   {" "}
-                  <NavLink style={{ color: "white" }} to="/openings">Openings</NavLink>{" "}
+                  <NavLink style={{ color: "white" }} to="/openings">
+                    <div style={this.navStyle}>Openings</div>
+                  </NavLink>{" "}
                 </MenuItem>
               </SubMenu>
             </Row>
           </Col>
+
           <Col
             span={12}
-            onMouseEnter={this.show}
-            onMouseLeave={()=>{
-              this.hide();
+            onMouseEnter={() => {
+              this.setState({ focused: true });
+            }}
+            onMouseLeave={() => {
+              this.setState({ focused: false });
               this.setState((this.state.children = null));
             }}
             style={{
-              height: "100% !important",
-              background: "gray",
-              display: this.state.hidden ? "none" : "block"
+              display: this.state.focused ? "block" : "none",
+              height: "100vh",
+              background: "#111",
+              color: "white"
             }}
           >
             {this.state.children}
           </Col>
         </Row>
-      </div>
+      </Affix>
     );
   }
 }
