@@ -18,7 +18,7 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Row>
-            <Col span={6}>
+            <Col span={6} style={{ height: "100vh" }}>
               <SideMenu />
             </Col>
             <Col span={12}>
@@ -35,11 +35,12 @@ class App extends Component {
             </Col>
             <Col span={6} style={{ height: "50vh" }}>
               <Switch>
-                <Route path="/" component={Error} exact />
+                <Route path="/" component={Chat} exact />
 
                 <Route path="/live" component={Chat} />
                 <Route path="/online" component={Chat} />
                 <Route path="/computer" component={Chat} />
+                <Route path="/room/:id" component={Chat} />
                 <Route path="/lessons" component={null} />
                 <Route path="/openings" component={null} />
                 <Route component={Error} />
