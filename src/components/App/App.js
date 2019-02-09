@@ -7,6 +7,7 @@ import Error from "./../Error/Error";
 import Lessons from "./../Lessons/Lessons";
 import Openings from "./../Openings/Openings";
 import Home from "./../Home/Home";
+import Chat from "./../Chat/Chat";
 import GameRoom from "./../GameRoom/GameRoom";
 
 import "./App.css";
@@ -29,6 +30,18 @@ class App extends Component {
                 <Route path="/lessons" component={Lessons} />
                 <Route path="/room/:id" component={GameRoom} />
                 <Route path="/openings" component={Openings} />
+                <Route component={Error} />
+              </Switch>
+            </Col>
+            <Col span={6} style={{ height: "50vh" }}>
+              <Switch>
+                <Route path="/" component={Error} exact />
+
+                <Route path="/live" component={Chat} />
+                <Route path="/online" component={Chat} />
+                <Route path="/computer" component={Chat} />
+                <Route path="/lessons" component={null} />
+                <Route path="/openings" component={null} />
                 <Route component={Error} />
               </Switch>
             </Col>
