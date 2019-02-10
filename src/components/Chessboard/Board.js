@@ -1,5 +1,5 @@
 export default class Board {
-  constructor(boxSize, chess, color, socket, blackc, whitec) {
+  constructor(boxSize, chess, color, blackc, whitec) {
     this.boxSize = boxSize;
     this.chess = chess;
     this.dragged = null;
@@ -8,7 +8,6 @@ export default class Board {
     this.swap = false;
     if (color == "b") this.swap = true;
     this.promotingMove = null;
-    this.socket = socket;
     this.blackc = blackc;
     this.whitec = whitec;
   }
@@ -122,6 +121,8 @@ export default class Board {
       case "q":
         p.sounds["castle"].play();
         break;
+        default:
+        break;
     }
   }
 
@@ -131,6 +132,11 @@ export default class Board {
 
   startDrag(p) {
     this.dragged = this.getClickedPiece(p);
+  }
+
+  resetDrag(p){
+    this.dragged = null;
+    this.release(p);
   }
 
   click(p) {
@@ -157,7 +163,7 @@ export default class Board {
         if (move) {
           correct = true;
           this.chess.undo();
-          if (move.flags == "p" || move.flags == "pc" || move.flags == "cp") {
+          if (move.flags === "p" || move.flags === "pc" || move.flags === "cp") {
             this.promotingMove = move;
             p.redraw();
           } else {

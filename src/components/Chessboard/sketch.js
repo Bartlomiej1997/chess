@@ -5,6 +5,7 @@ import chess from "chess.js";
 var boxSize = 64;
 let chessboard;
 let props;
+let setupDone = false;
 
 export default function sketch(p) {
   p.preload = () => {
@@ -31,28 +32,30 @@ export default function sketch(p) {
     p.sounds["lose"] = p.loadSound("/assets/lose.mp3");
     p.sounds["check"] = p.loadSound("/assets/check.mp3");
   };
+
   p.setup = () => {
     p.frameRate(30);
     p.createCanvas(800, 800);
     p.textSize(30);
     boxSize = p.width / 8;
     props.socket.on("move", data => {
-      chessboard.move(data,p);
+      chessboard.move(data, p);
       p.redraw();
     });
     p.noLoop();
+    console.log(props);
     chessboard = new Board(
       boxSize,
       new chess(props.fen),
       props.color,
-      props.socket,
       p.color(182, 136, 97),
       p.color(240, 216, 179)
     );
+    setupDone = true;
     p.windowResized();
   };
 
-  p.myCustomRedrawAccordingToNewPropsHandler = function(tprops) {
+  p.myCustomRedrawAccordingToNewPropsHandler = function (tprops) {
     props = tprops;
   };
 
@@ -62,29 +65,44 @@ export default function sketch(p) {
   };
 
   p.windowResized = () => {
+    if (!setupDone) return;
     let size = p.min(
       document.getElementById("chesscol").offsetWidth,
       p.windowHeight
     );
     p.resizeCanvas(size, size);
-    boxSize = p.floor(size / 8);
+    boxSize = size / 8;
     chessboard.resize(boxSize);
     p.redraw();
   };
 
-  p.mouseDragged = () => {
+  p.mouseMoved = () => {
+    if (!setupDone) return;
     if (chessboard.dragged) p.redraw();
   };
+  p.mouseDragged = () => {
+    if (!setupDone) return;
+    if (chessboard.dragged) p.redraw();
+  }
 
-  p.mousePressed = () => {
-    chessboard.click(p);
+  p.mousePressed = (e) => {
+    if (!setupDone) return;
+    if (e.which == 1) {
+      chessboard.click(p);
+    }
   };
 
-  p.mouseReleased = () => {
-    chessboard.release(p);
+  p.mouseReleased = (e) => {
+    if (!setupDone) return;
+    if (e.which == 1) {
+      chessboard.release(p);
+    } else if (e.which == 3) {
+      chessboard.resetDrag(p);
+    }
   };
 
   p.keyPressed = () => {
+    if (!setupDone) return;
     if (p.keyCode == 32) {
       chessboard.swapBoard();
       p.redraw();

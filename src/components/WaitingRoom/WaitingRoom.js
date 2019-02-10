@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, Button, Row, Col } from "antd";
-import { Switch, Redirect, Route, Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import auth from "./../../auth";
 
 import io from "socket.io-client";
