@@ -7,21 +7,21 @@ import { NavLink } from "react-router-dom";
 class SideMenu extends Component {
   state = { focused: false, children: null };
 
-  navStyle = { padding: "15px", fontSize: "30px", marginBottom: "10px", borderBottom:'1px dashed white'};
+  navStyle = { padding: "15px", fontSize: "2vw", marginBottom: "10px", borderBottom:'1px dashed white'};
 
   render() {
     return (
       <Affix offsetTop={0}>
         <Row>
           <Col
-            span={12}
+            span={10}
             style={{
               height: "100vh",
               background: this.state.focused ? "#312e2b" : "#111"
             }}
           >
             <Row style={{ margin: "15px" }}>
-              <h1 style={{ color: "white", fontWeight:'900' }}>CHESS.COM</h1>
+              <h1 style={{ color: "white", fontWeight:'900', fontSize: "1.3vw"  }}>CHESS.COM</h1>
             </Row>
 
             <Row
@@ -91,7 +91,7 @@ class SideMenu extends Component {
           </Col>
 
           <Col
-            span={12}
+            span={14}
             onMouseEnter={() => {
               this.setState({ focused: true });
             }}
