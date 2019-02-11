@@ -47,6 +47,7 @@ export default function sketch(p) {
     chessboard = new Board(
       boxSize,
       new chess(props.fen),
+      props.socket,
       props.color,
       p.color(182, 136, 97),
       p.color(240, 216, 179)

@@ -25,8 +25,11 @@ class Chat extends Component {
       }
     ]
   };
+
+
+
   scrollToBottom = () => {
-    //this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    // this.messagesEnd.scrollIntoView({ behavior: "smooth" });
     this.messagesEnd.scrollIntoView();
   };
 
@@ -37,6 +40,10 @@ class Chat extends Component {
   componentDidUpdate() {
     this.scrollToBottom();
   }
+
+  
+
+
   render() {
     return (
       <div

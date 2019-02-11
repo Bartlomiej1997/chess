@@ -45,6 +45,7 @@ class GameRoom extends Component {
 
   render() {
     return (
+      
       <div id="chesscol" type="flex" justify="center">
         {this.state.renderBoard ? (
           <Chessboard
