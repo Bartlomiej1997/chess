@@ -35,6 +35,10 @@ class Chat extends Component {
   componentDidUpdate() {
     this.scrollToBottom();
   }
+
+  
+
+
   render() {
     return (
       <div

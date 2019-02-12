@@ -1,6 +1,6 @@
 export default function auth(sock, clbk,errclbk) {
   sock.on("auth", () => {
-    fetch("/auth",{method:"post"})
+    fetch("/auth",{method:"post", credentials:"include"})
       .then(res => res.json())
       .then(data => {
           console.log(data)

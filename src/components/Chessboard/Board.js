@@ -1,5 +1,6 @@
 export default class Board {
-  constructor(boxSize, chess, color, blackc, whitec) {
+  constructor(boxSize, chess,socket, color, blackc, whitec) {
+    this.socket = socket;
     this.boxSize = boxSize;
     this.chess = chess;
     this.dragged = null;
