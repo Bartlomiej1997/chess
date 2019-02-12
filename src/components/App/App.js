@@ -7,7 +7,7 @@ import Error from "./../Error/Error";
 import Lessons from "./../Lessons/Lessons";
 import Openings from "./../Openings/Openings";
 import Home from "./../Home/Home";
-import Chat from "./../Chat/Chat";
+
 import GameRoom from "./../GameRoom/GameRoom";
 
 import "./App.css";
@@ -21,7 +21,7 @@ class App extends Component {
             <Col span={6} style={{ height: "100vh" }}>
               <SideMenu />
             </Col>
-            <Col span={12}>
+            <Col span={18}>
               <Switch>
                 <Route path="/" component={Home} exact />
                 <Route path="/live" component={WaitingRoom} />
@@ -33,19 +33,7 @@ class App extends Component {
                 <Route component={Error} />
               </Switch>
             </Col>
-            <Col span={6} style={{ height: "50vh" }}>
-              <Switch>
-                <Route path="/" component={Chat} exact />
-
-                <Route path="/live" component={Chat} />
-                <Route path="/online" component={Chat} />
-                <Route path="/computer" component={Chat} />
-                <Route path="/room/:id" component={Chat} />
-                <Route path="/lessons" component={null} />
-                <Route path="/openings" component={null} />
-                <Route component={Error} />
-              </Switch>
-            </Col>
+            
           </Row>
         </div>
       </BrowserRouter>

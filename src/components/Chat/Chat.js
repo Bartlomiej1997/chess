@@ -3,30 +3,28 @@ import { Row, Col, Icon, Input } from "antd";
 import Message from "./Message/Message";
 
 class Chat extends Component {
-  state = {
-    name: "",
-    message: "",
-    messages: [
-      {
-        name: "user",
-        message: "msg hehe"
-      },
-      {
-        name: "user2",
-        message: "msg2 hehe"
-      },
-      {
-        name: "user",
-        message: "msg3 hehe"
-      },
-      {
-        name: "user2",
-        message: "msg4 hehe"
-      }
-    ]
-  };
+
+  constructor(props){
+    super(props);
+    this.state = {
+      name: "",
+      message: "",
+      messages: []
+    };
+
+    const self = this;
+    props.socket.on("msg",()=>{
+      self.setState({
+        messages: [
+          ...this.state.messages,
+          { name: this.state.name, message: this.state.message }
+        ]
+      });
+    })
+  }
+
+  
   scrollToBottom = () => {
-    //this.messagesEnd.scrollIntoView({ behavior: "smooth" });
     this.messagesEnd.scrollIntoView();
   };
 

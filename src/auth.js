@@ -4,7 +4,10 @@ export default function auth(sock, clbk,errclbk) {
       .then(res => res.json())
       .then(data => {
           console.log(data)
-          if(data==true) clbk();
+          if(data) {
+            sock.emit("setEvents");
+            clbk();
+          }
           else errclbk();
       })
       .catch(err=>errclbk());
