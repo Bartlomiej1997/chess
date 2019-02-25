@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Chessboard from "./../Chessboard/Chessboard";
 import io from "socket.io-client";
 import auth from "./../../auth";
+import GameOverInfo from "./../GameOverInfo/GameOverInfo"
+import { Row, Col } from "antd";
 
 let socket;
 
@@ -20,7 +22,7 @@ class GameRoom extends Component {
     let self = this;
 
     let authing = () => {
-      socket = io("http://localhost:3001");
+      socket = io("/");
       auth(
         socket,
         () => {
@@ -28,7 +30,9 @@ class GameRoom extends Component {
             self.setState({
               color: data.color,
               fen: data.fen,
-              renderBoard: true
+              renderBoard: true,
+              time: data.time,
+              increment: data.increment
             });
           });
           socket.emit("connect to room", { id: self.state.room });
@@ -45,16 +49,30 @@ class GameRoom extends Component {
 
   render() {
     return (
-      
-      <div id="chesscol" type="flex" justify="center">
-        {this.state.renderBoard ? (
-          <Chessboard
-            socket={socket}
-            color={this.state.color}
-            fen={this.state.fen}
-          />
-        ) : null}
-      </div>
+      <Row>
+        <Col span={24} id="chesscol" type="flex" justify="center">
+          {this.state.renderBoard ? (
+            <>
+              <Chessboard
+                socket={socket}
+                color={this.state.color}
+                fen={this.state.fen}
+              />
+              <GameOverInfo
+                socket={socket}
+                time={this.state.time}
+                increment={this.state.increment}
+                color={this.state.color}
+                bp={this.state.bp}
+                wp={this.state.wp}
+                onGameOver={this.handleGameOver}
+                onSearch={this.handleSearch}
+                onRematch={this.handleRematch}
+              />
+            </>
+          ) : null}
+        </Col>
+      </Row>
     );
   }
 }
