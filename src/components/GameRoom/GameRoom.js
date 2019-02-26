@@ -60,7 +60,7 @@ class GameRoom extends Component {
       </div>
       </Col>
       <Col span={8}>
-      <Chat socket={socket} />
+      <Chat socket={socket} height='50vh'/>
 
       
       </Col >

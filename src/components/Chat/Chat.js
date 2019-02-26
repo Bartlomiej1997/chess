@@ -45,7 +45,7 @@ class Chat extends Component {
         style={{
           display: "flex",
           flexFlow: "column",
-          height: "100%",
+          height: this.props.height,
           border: "1px solid gray",
           background: "#eee",
           borderRadius: "5px",
