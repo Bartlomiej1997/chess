@@ -3,7 +3,7 @@ import Chessboard from "./../Chessboard/Chessboard";
 import io from "socket.io-client";
 import auth from "./../../auth";
 import Chat from "./../Chat/Chat";
-import { Row } from "antd";
+import { Row, Col } from "antd";
 
 let socket;
 
@@ -47,8 +47,8 @@ class GameRoom extends Component {
 
   render() {
     return (
-      <ROW>
-        <COL span={16}>
+      <Row>
+        <Col span={16}>
       <div id="chesscol" type="flex" justify="center">
         {this.state.renderBoard ? (
           <Chessboard
@@ -58,15 +58,15 @@ class GameRoom extends Component {
           />
           ) : null}
       </div>
-      </COL>
-      <COL span={8}>
+      </Col>
+      <Col span={8}>
       <Chat socket={socket} />
 
       
-      </COL >
+      </Col >
       
       
-      </ROW>
+      </Row>
     );
   }
 }
