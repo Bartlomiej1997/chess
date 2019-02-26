@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Card, Button, Row, Col } from "antd";
 import { Redirect, Link } from "react-router-dom";
 import auth from "./../../auth";
+import Animation from 'react-addons-css-transition-group';
 
 import io from "socket.io-client";
 
@@ -26,7 +27,7 @@ class WaitingRoom extends Component {
     let self = this;
 
     let authing = () => {
-      socket = io("http://localhost:3001");
+      socket = io("/");
       auth(
         socket,
         () => {
