@@ -74,7 +74,15 @@ class GameRoom extends Component {
           ) : null}
         </Col>
         <Col span={8}>
-          <Chat socket={socket} height="50vh" />
+          
+        {this.state.renderBoard ? (
+            <>
+              <Chat socket={socket} height="50vh" />
+              />
+            </>
+          ) : null}
+        
+    
         </Col>
       </Row>
     );

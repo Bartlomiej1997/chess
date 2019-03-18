@@ -3,8 +3,7 @@ import { Row, Col, Icon, Input } from "antd";
 import Message from "./Message/Message";
 
 class Chat extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       name: "",
@@ -13,31 +12,31 @@ class Chat extends Component {
     };
 
     const self = this;
-    // this.props.socket.on("msg",()=>{
-    //   self.setState({
-    //     messages: [
-    //       ...this.state.messages,
-    //       { name: this.state.name, message: this.state.message }
-    //     ]
-    //   });
-    // })
   }
 
-  
   scrollToBottom = () => {
     this.messagesEnd.scrollIntoView();
   };
 
   componentDidMount() {
+    this.props.socket.emit("join");
+    this.props.socket.on("init chat", data => {
+      this.setState({ name: data.name, messages: data.history });
+    });
     this.scrollToBottom();
+    this.props.socket.on("msg", data =>
+      this.setState({
+        messages: [
+          ...this.state.messages,
+          { name: data.name, message: data.message }
+        ]
+      })
+    );
   }
 
   componentDidUpdate() {
     this.scrollToBottom();
   }
-
-  
-
 
   render() {
     return (
@@ -103,13 +102,9 @@ class Chat extends Component {
           onSubmit={e => {
             e.preventDefault();
             if (this.state.name !== "") {
-              this.setState({
-                messages: [
-                  ...this.state.messages,
-                  { name: this.state.name, message: this.state.message }
-                ]
-              });
+              this.props.socket.emit("msg", this.state.message);
             } else {
+              this.props.socket.emit("name", this.state.message);
               this.setState({ name: this.state.message });
             }
             this.setState({ message: "" });
